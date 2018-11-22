@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import SeasonDisplay from './comps/SeasonDisplay'
+import Loader from './comps/Loader';
+
 class App extends Component {
   state = {
     lat: null,
@@ -22,9 +24,14 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <SeasonDisplay {...this.state} />
-    );
+      if (this.state.error && !this.state.lat) {
+        return <div><h1>Error: {this.state.error}</h1></div>;
+      }
+      if (!this.state.error && this.state.lat) {
+        return <SeasonDisplay {...this.state} />
+      }
+
+      return <Loader/>;
   }
 }
 
