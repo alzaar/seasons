@@ -22,16 +22,23 @@ class App extends Component {
     console.log(this.state)
 
   }
+  const renderContent = () => {
+    if (this.state.error && !this.state.lat) {
+      return <div><h1>Error: {this.state.error}</h1></div>;
+    }
+    if (!this.state.error && this.state.lat) {
+      return <SeasonDisplay {...this.state} />
+    }
+
+    return <Loader/>;
+  }
 
   render() {
-      if (this.state.error && !this.state.lat) {
-        return <div><h1>Error: {this.state.error}</h1></div>;
-      }
-      if (!this.state.error && this.state.lat) {
-        return <SeasonDisplay {...this.state} />
-      }
-
-      return <Loader/>;
+      return (
+        <div className="border-red">
+          {this.renderContent}
+        </div>
+      );
   }
 }
 
