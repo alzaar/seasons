@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-
+  constructor
   render() {
     window.navigator.geolocation.getCurrentPosition(
       position => console.log(position),
@@ -11,7 +11,7 @@ class App extends Component {
     )
     return (
       <div className="App">
-        Salut
+        {this.state.lat}
       </div>
     );
   }
