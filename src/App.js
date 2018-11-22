@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -11,16 +10,15 @@ class App extends Component {
       error: ''
     }
   }
-  render() {
+
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({lat: position.coords.latitude})
-        this.setState({lng: position.coords.longitude})
-      },
-      err => {
-          this.setState({ error: err.message })
-      }
+      position => this.setState({lat: position.coords.latitude, lng: position.coords.longitude}),
+      err => this.setState({ error: err.message }),
     )
+  }
+
+  render() {
     if (this.state.lat && this.state.lng) {
     return (
       <div className="App">
@@ -28,12 +26,18 @@ class App extends Component {
         <h1>Longitude: {this.state.lng}</h1>
       </div>
     );
-  } else {
+  } else if (!this.state.error) {
     return (
       <div className="App">
-        <h1>Error: {this.state.error}</h1>
+        <h1>Loading....</h1>
       </div>
     );
+  } else {
+    return (
+    <div className="App">
+      <h1>Error: {this.state.error}</h1>
+    </div>
+  );
   }
   }
 }
