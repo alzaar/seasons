@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       lat: null,
       lng: null,
+      error: ''
     }
   }
   render() {
@@ -16,14 +17,24 @@ class App extends Component {
         this.setState({lat: position.coords.latitude})
         this.setState({lng: position.coords.longitude})
       },
-      err => console.log(err)
+      err => {
+          this.setState({ error: err.message })
+      }
     )
+    if (this.state.lat && this.state.lng) {
     return (
       <div className="App">
         <h1>Latitude: {this.state.lat}</h1>
         <h1>Longitude: {this.state.lng}</h1>
       </div>
     );
+  } else {
+    return (
+      <div className="App">
+        <h1>Error: {this.state.error}</h1>
+      </div>
+    );
+  }
   }
 }
 
