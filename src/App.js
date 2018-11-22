@@ -13,13 +13,15 @@ class App extends Component {
   render() {
     window.navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({})
+        this.setState({lat: position.coords.latitude})
+        this.setState({lng: position.coords.longitude})
       },
       err => console.log(err)
     )
     return (
       <div className="App">
-        {this.state.lat}
+        <h1>Latitude: {this.state.lat}</h1>
+        <h1>Longitude: {this.state.lng}</h1>
       </div>
     );
   }
