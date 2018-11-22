@@ -5,7 +5,8 @@ class App extends Component {
   state = {
     lat: null,
     lng: null,
-    error: ''
+    error: '',
+    date: (new Date()).getMonth()
   }
 
   componentDidMount() {
