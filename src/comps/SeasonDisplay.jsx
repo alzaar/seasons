@@ -8,31 +8,29 @@ const getSeason = (month, lat) => {
   }
 }
 
-const SeasonDisplay = props => {
-  const season = getSeason(props.month, props.lat);
-  console.log(season);
-  if (props.lat && props.lng) {
-    console.log(props.lat)
-  return (
-    <div className="App">
-      <h1>Latitude: {props.lat}</h1>
-      <h1>Longitude: {props.lng}</h1>
-    </div>
-  );
-} else if (!props.error) {
-  return (
-    <div className="App">
-      <h1>Loading....</h1>
-    </div>
-  );
-} else {
-  return (
-  <div className="App">
-    <h1>Error: {props.error}</h1>
-  </div>
-);
+const getSeasonConfig = {
+  summer: {
+    text: 'Let\'s hit the beach!',
+    iconName: 'sun'
+  },
+  winter: {
+    text: 'Burr, it\'s chilly',
+    iconName: 'snowflake'
+  }
 }
 
+const SeasonDisplay = props => {
+  const season = getSeason(props.month, props.lat);
+
+
+  const {text, iconName } = getSeasonConfig[season];
+  return (
+    <div className={`season-display ${season}`} >
+      <i className={`icon-left massive ${iconName} icon`} />
+      <h1>{text}</h1>
+      <i className={`icon-right massive ${iconName} icon`} />
+    </div>
+  );
 }
 
 export default SeasonDisplay;
