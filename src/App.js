@@ -12,7 +12,9 @@ class App extends Component {
   }
   render() {
     window.navigator.geolocation.getCurrentPosition(
-      position => console.log(position),
+      position => {
+        this.setState({})
+      },
       err => console.log(err)
     )
     return (
