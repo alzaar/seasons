@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import SeasonDisplay from './comps/SeasonDisplay'
 class App extends Component {
   state = {
     lat: null,
@@ -10,32 +10,20 @@ class App extends Component {
 
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
-      position => this.setState({lat: position.coords.latitude, lng: position.coords.longitude}),
+      position => {
+        this.setState({lat: position.coords.latitude, lng: position.coords.longitude})
+        console.log(position)
+      },
       err => this.setState({ error: err.message }),
     )
+    console.log(this.state)
+
   }
 
   render() {
-    if (this.state.lat && this.state.lng) {
     return (
-      <div className="App">
-        <h1>Latitude: {this.state.lat}</h1>
-        <h1>Longitude: {this.state.lng}</h1>
-      </div>
+      <SeasonDisplay {...this.state} />
     );
-  } else if (!this.state.error) {
-    return (
-      <div className="App">
-        <h1>Loading....</h1>
-      </div>
-    );
-  } else {
-    return (
-    <div className="App">
-      <h1>Error: {this.state.error}</h1>
-    </div>
-  );
-  }
   }
 }
 
